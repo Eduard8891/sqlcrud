@@ -1,0 +1,69 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-tables
+      author: Eduard
+      changes:
+        - createTable:
+            tableName: labels
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+              - column:
+                  name: status
+                  type: varchar(25)
+        - createTable:
+            tableName: posts
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: content
+                  type: varchar(200)
+              - column:
+                  name: created
+                  type: timestamp
+              - column:
+                  name: updated
+                  type: timestamp
+              - column:
+                  name: labels
+                  type: varchar(2000)
+              - column:
+                  name: status
+                  type: varchar(25)
+        - createTable:
+            tableName: writers
+            columns:
+              - column:
+                  name: id
+                  type: integer
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: firstname
+                  type: varchar(100)
+              - column:
+                  name: lastname
+                  type: varchar(100)
+              - column:
+                  name: posts
+                  type: varchar(2000)
+              - column:
+                  name: status
+                  type: varchar(25)
+

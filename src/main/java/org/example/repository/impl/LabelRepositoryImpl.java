@@ -1,7 +1,6 @@
 package org.example.repository.impl;
 
 import org.example.model.Label;
-import org.example.model.PostStatus;
 import org.example.repository.LabelRepository;
 import org.example.repository.ParserFromRS;
 import org.example.repository.PostgresConnection;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LabelRepositoryImpl implements LabelRepository {
-    Connection connection = PostgresConnection.createOrGetConnection();
+    Connection connection = PostgresConnection.getConnection();
 
     @Override
     public Label get(Integer id) {

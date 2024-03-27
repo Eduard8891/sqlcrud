@@ -4,12 +4,10 @@ import org.example.model.Label;
 import org.example.model.Post;
 import org.example.model.PostStatus;
 import org.example.model.Writer;
+import org.example.repository.gson.LabelsParser;
+import org.example.repository.gson.PostParser;
 
-import java.sql.Array;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.sql.Date;
+import java.sql.*;
 import java.util.List;
 
 public class ParserFromRS {
@@ -30,9 +28,9 @@ public class ParserFromRS {
         try {
             int id = resultSet.getInt("id");
             String content = resultSet.getString("content");
-            Date created = resultSet.getDate("created");
-            Date updated = resultSet.getDate("updated");
-            List<Label> labels = parseToJavaListLabelsFromRS(resultSet.getArray("labels"));
+            Timestamp created = resultSet.getTimestamp("created");
+            Timestamp updated = resultSet.getTimestamp("updated");
+            List<Label> labels = LabelsParser.toList(resultSet.getString("labels"));
             PostStatus status = PostStatus.valueOf(resultSet.getString("status"));
             return new Post(id, content, created, updated, labels, status);
         } catch (SQLException exception) {
@@ -41,22 +39,22 @@ public class ParserFromRS {
         return null;
     }
 
-    public static List<Label> parseToJavaListLabelsFromRS(Array array) {
-        try {
-            Object[] arrayObj = (Object[]) array.getArray();
-            return Arrays.stream(arrayObj).map(it -> (Label) it).toList();
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        }
-        return null;
-    }
+//    public static List<Label> parseToJavaListLabelsFromRS(Array array) {
+//        try {
+//            Object[] arrayObj = (Object[]) array.getArray();
+//            return Arrays.stream(arrayObj).map(it -> (Label) it).toList();
+//        } catch (SQLException sqlException) {
+//            sqlException.printStackTrace();
+//        }
+//        return null;
+//    }
 
     public static Writer mappingWriterFromRS(ResultSet resultSet) {
         try {
             int id = resultSet.getInt("id");
             String firstName = resultSet.getString("firstname");
             String lastName = resultSet.getString("lastname");
-            List<Post> posts = parseToJavaListPostsFromRS(resultSet.getArray("posts"));
+            List<Post> posts = PostParser.toList(resultSet.getString("posts"));
             PostStatus status = PostStatus.valueOf(resultSet.getString("status"));
             return new Writer(id, firstName, lastName, posts, status);
         } catch (SQLException exception) {
@@ -65,13 +63,13 @@ public class ParserFromRS {
         return null;
     }
 
-    private static List<Post> parseToJavaListPostsFromRS(Array posts) {
-        try {
-            Object[] arrayObj = (Object[]) posts.getArray();
-            return Arrays.stream(arrayObj).map(it -> (Post) it).toList();
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-        }
-        return null;
-    }
+//    private static List<Post> parseToJavaListPostsFromRS(Array posts) {
+//        try {
+//            Object[] arrayObj = (Object[]) posts.getArray();
+//            return Arrays.stream(arrayObj).map(it -> (Post) it).toList();
+//        } catch (SQLException sqlException) {
+//            sqlException.printStackTrace();
+//        }
+//        return null;
+//    }
 }

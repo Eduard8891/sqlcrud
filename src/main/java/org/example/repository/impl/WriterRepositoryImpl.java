@@ -1,20 +1,17 @@
 package org.example.repository.impl;
 
-import org.example.model.Label;
-import org.example.model.Post;
-import org.example.model.PostStatus;
 import org.example.model.Writer;
 import org.example.repository.ParserFromRS;
 import org.example.repository.PostgresConnection;
 import org.example.repository.WriterRepository;
+import org.example.repository.gson.PostParser;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class WriterRepositoryImpl implements WriterRepository {
-    Connection connection = PostgresConnection.createOrGetConnection();
+    Connection connection = PostgresConnection.getConnection();
 
     @Override
     public Writer get(Integer id) {
@@ -62,10 +59,7 @@ public class WriterRepositoryImpl implements WriterRepository {
                     "update writers set firstname = ?, lastname = ?, posts = ?, status = ? where id = ?");
             p.setString(1, writer.getFirstName());
             p.setString(2, writer.getLastName());
-            p.setArray(3, connection.createArrayOf("posts", writer.getPosts()
-                    .stream()
-                    .map(it -> (Object) it)
-                    .toArray()));
+            p.setString(3, PostParser.toJson(writer.getPosts()));
             p.setString(4, writer.getStatus().name());
             p.setInt(5, writer.getId());
             return get(writer.getId());
@@ -79,15 +73,11 @@ public class WriterRepositoryImpl implements WriterRepository {
     public Writer create(Writer writer) {
         try {
             PreparedStatement p = connection.prepareStatement(
-                    "insert into writers (id, firstname, lastname, posts, status) values (?, ?, ?, ?, ?)");
-            p.setInt(1, writer.getId());
-            p.setString(2, writer.getFirstName());
-            p.setString(3, writer.getLastName());
-            p.setArray(4, connection.createArrayOf("posts", writer.getPosts()
-                    .stream()
-                    .map(it -> (Object) it)
-                    .toArray()));
-            p.setString(5, writer.getStatus().name());
+                    "insert into writers (firstname, lastname, posts, status) values (?, ?, ?, ?)");
+            p.setString(1, writer.getFirstName());
+            p.setString(2, writer.getLastName());
+            p.setString(3, PostParser.toJson(writer.getPosts()));
+            p.setString(4, writer.getStatus().name());
             return get(writer.getId());
         } catch (SQLException exception) {
             exception.printStackTrace();

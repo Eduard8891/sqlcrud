@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
@@ -13,8 +14,8 @@ import java.util.List;
 public class Post {
     private Integer id;
     private String content;
-    private Date created;
-    private Date updated;
+    private Timestamp created;
+    private Timestamp updated;
     private List<Label> labels;
     private PostStatus status;
 }
