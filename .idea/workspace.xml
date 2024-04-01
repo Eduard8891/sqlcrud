@@ -4,21 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="43c567a7-e509-427d-a8dc-276606ea810d" name="Changes" comment="Added postgres">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/gson/LabelsParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/gson/PostParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/db/changelog/changelog-master.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/db/changelog/changeset/create-tables.yaml" afterDir="false" />
+    <list default="true" id="43c567a7-e509-427d-a8dc-276606ea810d" name="Changes" comment="Added gson and changed array to varchar(2000)">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/LabelService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/PostService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/service/WriterService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/LabelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/LabelController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/WriterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/WriterController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/ParserFromRS.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/ParserFromRS.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/PostgresConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/PostgresConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/LabelRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/LabelRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/PostRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/PostRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/WriterRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/WriterRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/changelog/changelog-master.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/changelog/changeset/create-tables.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/create-tables.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,6 +66,12 @@
       <recent name="C:\Users\edrip\IdeaProjects\mycrud\src\main\java\org\example\repository" />
       <recent name="C:\Users\edrip\IdeaProjects\mycrud\src\main\java\org\example" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\edrip\IdeaProjects\mycrud\src\main\resources" />
+      <recent name="C:\Users\edrip\IdeaProjects\mycrud\src\main\java" />
+      <recent name="C:\Users\edrip\IdeaProjects\mycrud" />
+      <recent name="C:\Users\edrip\IdeaProjects\mycrud\src\main\resources\db\changelog\changeset" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -104,7 +108,11 @@
       <workItem from="1711349562501" duration="5678000" />
       <workItem from="1711394428172" duration="3994000" />
       <workItem from="1711458985873" duration="2141000" />
-      <workItem from="1711512027433" duration="4497000" />
+      <workItem from="1711512027433" duration="5167000" />
+      <workItem from="1711667005647" duration="50000" />
+      <workItem from="1711737510893" duration="2054000" />
+      <workItem from="1711792621745" duration="769000" />
+      <workItem from="1712007057611" duration="2963000" />
     </task>
     <task id="LOCAL-00001" summary="Added postgres">
       <created>1711354638189</created>
@@ -113,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1711354638189</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added gson and changed array to varchar(2000)">
+      <created>1711517818282</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1711517818282</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -132,6 +147,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added postgres" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added postgres" />
+    <MESSAGE value="Added gson and changed array to varchar(2000)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added gson and changed array to varchar(2000)" />
   </component>
 </project>

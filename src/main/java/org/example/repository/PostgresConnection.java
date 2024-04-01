@@ -9,6 +9,7 @@ import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import org.postgresql.Driver;
 
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -43,7 +44,7 @@ public class PostgresConnection {
         try {
             DatabaseConnection dbConnection = new JdbcConnection(connection);
             Database database = DatabaseFactory.getInstance().findCorrectDatabaseImplementation(dbConnection);
-            Liquibase liquibase = new Liquibase("changelog-master.yml", new ClassLoaderResourceAccessor(), database);
+            Liquibase liquibase = new Liquibase("create-tables.yaml", new ClassLoaderResourceAccessor(), database);
             liquibase.update();
         } catch (LiquibaseException e) {
             e.printStackTrace();
