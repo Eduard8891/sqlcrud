@@ -3,7 +3,7 @@ package org.example.repository.impl;
 import org.example.model.Post;
 import org.example.repository.ParserFromRS;
 import org.example.repository.PostRepository;
-import org.example.repository.PostgresConnection;
+import org.example.PostgresConnection;
 import org.example.repository.gson.LabelsParser;
 
 import java.sql.*;

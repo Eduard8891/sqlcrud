@@ -39,16 +39,6 @@ public class ParserFromRS {
         return null;
     }
 
-//    public static List<Label> parseToJavaListLabelsFromRS(Array array) {
-//        try {
-//            Object[] arrayObj = (Object[]) array.getArray();
-//            return Arrays.stream(arrayObj).map(it -> (Label) it).toList();
-//        } catch (SQLException sqlException) {
-//            sqlException.printStackTrace();
-//        }
-//        return null;
-//    }
-
     public static Writer mappingWriterFromRS(ResultSet resultSet) {
         try {
             int id = resultSet.getInt("id");
@@ -62,14 +52,4 @@ public class ParserFromRS {
         }
         return null;
     }
-
-//    private static List<Post> parseToJavaListPostsFromRS(Array posts) {
-//        try {
-//            Object[] arrayObj = (Object[]) posts.getArray();
-//            return Arrays.stream(arrayObj).map(it -> (Post) it).toList();
-//        } catch (SQLException sqlException) {
-//            sqlException.printStackTrace();
-//        }
-//        return null;
-//    }
 }

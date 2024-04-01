@@ -3,7 +3,7 @@ package org.example.repository.impl;
 import org.example.model.Label;
 import org.example.repository.LabelRepository;
 import org.example.repository.ParserFromRS;
-import org.example.repository.PostgresConnection;
+import org.example.PostgresConnection;
 
 import java.sql.*;
 import java.util.ArrayList;

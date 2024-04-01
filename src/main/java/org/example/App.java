@@ -1,6 +1,5 @@
 package org.example;
 
-import org.example.repository.PostgresConnection;
 import org.example.view.MainView;
 
 import java.sql.*;

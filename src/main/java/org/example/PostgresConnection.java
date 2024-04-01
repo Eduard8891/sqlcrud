@@ -1,4 +1,4 @@
-package org.example.repository;
+package org.example;
 
 import liquibase.Liquibase;
 import liquibase.database.Database;

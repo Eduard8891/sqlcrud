@@ -2,7 +2,7 @@ package org.example.repository.impl;
 
 import org.example.model.Writer;
 import org.example.repository.ParserFromRS;
-import org.example.repository.PostgresConnection;
+import org.example.PostgresConnection;
 import org.example.repository.WriterRepository;
 import org.example.repository.gson.PostParser;
 
