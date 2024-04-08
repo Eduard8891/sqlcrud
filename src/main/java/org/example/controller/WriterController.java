@@ -6,7 +6,7 @@ import org.example.service.WriterService;
 import java.util.List;
 
 public class WriterController {
-    private final WriterService writerService;
+    private WriterService writerService;
 
     public WriterController() {
         this.writerService = new WriterService();
@@ -17,7 +17,8 @@ public class WriterController {
     }
 
     public boolean createWriter(String body) {
-        return writerService.create(body);
+        writerService.create(body);
+        return true;
     }
 
     public void deleteWriter(Integer id) {

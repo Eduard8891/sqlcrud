@@ -1,9 +1,10 @@
 package org.example.repository.impl;
 
 import org.example.model.Label;
+import org.example.model.PostStatus;
 import org.example.repository.LabelRepository;
-import org.example.repository.ParserFromRS;
 import org.example.PostgresConnection;
+import org.example.repository.RepoHelper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,16 +15,15 @@ public class LabelRepositoryImpl implements LabelRepository {
 
     @Override
     public Label get(Integer id) {
-        Label label = null;
         try {
             PreparedStatement p = connection.prepareStatement("select * from labels where id = ?");
             p.setInt(1, id);
             ResultSet resultSet = p.executeQuery();
-            label = ParserFromRS.mappingLabelFromRS(resultSet);
+            return RepoHelper.mappingLabelFromRS(resultSet);
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-        return label;
+        return null;
     }
 
     @Override
@@ -44,7 +44,7 @@ public class LabelRepositoryImpl implements LabelRepository {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from labels");
             while (resultSet.next()) {
-                labels.add(ParserFromRS.mappingLabelFromRS(resultSet));
+                labels.add(RepoHelper.mappingLabelFromRS(resultSet));
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -54,34 +54,30 @@ public class LabelRepositoryImpl implements LabelRepository {
 
     @Override
     public Label update(Label label) {
-        Label result = null;
         try {
             PreparedStatement p = connection.prepareStatement("update labels set name = ?, status = ? where id = ?");
             p.setString(1, label.getName());
             p.setString(2, label.getStatus().name());
             p.setInt(3, label.getId());
             ResultSet resultSet = p.executeQuery();
-            result = ParserFromRS.mappingLabelFromRS(resultSet);
+            return RepoHelper.mappingLabelFromRS(resultSet);
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-        return result;
+        return null;
     }
 
     @Override
     public Label create(Label label) {
-        Label result = null;
         try {
-            PreparedStatement p = connection.prepareStatement("insert into labels (id, name, status) values (?, ?, ?)");
-            p.setInt(1, label.getId());
-            p.setString(2, label.getName());
-            p.setString(3, label.getStatus().name());
+            PreparedStatement p = connection.prepareStatement("insert into labels (name, status) values (?, ?)");
+            p.setString(1, label.getName());
+            p.setString(2, PostStatus.ACTIVE.name());
             ResultSet resultSet = p.executeQuery();
-            connection.commit();
-            result = ParserFromRS.mappingLabelFromRS(resultSet);
+            return RepoHelper.mappingLabelFromRS(resultSet);
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-        return result;
+        return null;
     }
 }

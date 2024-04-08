@@ -19,6 +19,7 @@
     <liquibase.version>4.24.0</liquibase.version>
     <postgresql.version>42.7.3</postgresql.version>
     <gson.version>2.8.5</gson.version>
+    <junit.version>5.8.0</junit.version>
   </properties>
 
   <dependencies>
@@ -28,9 +29,15 @@
       <version>${gson.version}</version>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -92,6 +99,17 @@
         <plugin>
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.liquibase</groupId>
+          <artifactId>liquibase-maven-plugin</artifactId>
+          <version>${liquibase.version}</version>
+          <configuration>
+            <changeLogFile>create-tables.yaml</changeLogFile>
+            <url>jdbc:postgresql://localhost:5432/mydatabase</url>
+            <username>postgres</username>
+            <password>12345</password>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>

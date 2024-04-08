@@ -9,7 +9,6 @@ import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
 import org.postgresql.Driver;
 
-import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -48,6 +47,7 @@ public class PostgresConnection {
             liquibase.update();
         } catch (LiquibaseException e) {
             e.printStackTrace();
+            System.exit(1);
         }
     }
 }

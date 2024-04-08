@@ -1,6 +1,7 @@
 package org.example.repository;
 
 
+import org.example.model.Label;
 import org.example.model.Post;
 
 import java.util.List;
@@ -21,4 +22,6 @@ public interface PostRepository extends GenericRepository<Post, Integer> {
 
     @Override
     Post create(Post post);
+
+    List <Label> getLabels();
 }

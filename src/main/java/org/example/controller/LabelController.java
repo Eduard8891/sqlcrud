@@ -6,7 +6,8 @@ import org.example.service.LabelService;
 import java.util.List;
 
 public class LabelController {
-    private final LabelService labelService;
+
+    private LabelService labelService;
 
     public LabelController() {
         this.labelService = new LabelService();
@@ -17,7 +18,8 @@ public class LabelController {
     }
 
     public boolean createLabel(String body) {
-        return labelService.create(body);
+        labelService.create(body);
+        return true;
     }
 
     public void deleteLabel(Integer id) {

@@ -1,7 +1,7 @@
 package org.example.repository.impl;
 
 import org.example.model.Writer;
-import org.example.repository.ParserFromRS;
+import org.example.repository.RepoHelper;
 import org.example.PostgresConnection;
 import org.example.repository.WriterRepository;
 import org.example.repository.gson.PostParser;
@@ -16,10 +16,27 @@ public class WriterRepositoryImpl implements WriterRepository {
     @Override
     public Writer get(Integer id) {
         try {
-            PreparedStatement p = connection.prepareStatement("select * from writers where id = ?");
+            PreparedStatement p = connection.prepareStatement(
+                    "select" +
+                            "w.id as id," +
+                            "w.firstname as firstname," +
+                            "w.lastname as lastname," +
+                            "json_agg(json_build_object('id', p.id, " +
+                            "'content', p.content, " +
+                            "'created', p.created, " +
+                            "'updated', p.updated, " +
+                            "'labels', (select json_agg(json_build_object('id', id, 'name', name, 'status', status)) from labels group by id)," +
+                            "'status', p.status)) as posts," +
+                            "w.status as status" +
+                            "from writers w" +
+                            "join writer_posts wp on w.id = wp.writer_id" +
+                            "join posts p on p.id = wp.post_id" +
+                            "where w.id = ?" +
+                            "group by w.id"
+            );
             p.setInt(1, id);
             ResultSet resultSet = p.executeQuery();
-            return ParserFromRS.mappingWriterFromRS(resultSet);
+            return RepoHelper.mappingWriterFromRS(resultSet);
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -42,9 +59,24 @@ public class WriterRepositoryImpl implements WriterRepository {
         List<Writer> writers = new ArrayList<>();
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from writers");
+            ResultSet resultSet = statement.executeQuery(
+                    "select" +
+                            "w.id as id," +
+                            "w.firstname as firstname," +
+                            "w.lastname as lastname," +
+                            "json_agg(json_build_object('id', p.id, " +
+                            "'content', p.content, " +
+                            "'created', p.created, " +
+                            "'updated', p.updated, " +
+                            "'labels', (select json_agg(json_build_object('id', id, 'name', name, 'status', status)) from labels group by id)," +
+                            "'status', p.status)) as posts," +
+                            "w.status as status" +
+                            "from writers w" +
+                            "join writer_posts wp on w.id = wp.writer_id" +
+                            "join posts p on p.id = wp.post_id" +
+                            "group by w.id");
             while (resultSet.next()) {
-                writers.add(ParserFromRS.mappingWriterFromRS(resultSet));
+                writers.add(RepoHelper.mappingWriterFromRS(resultSet));
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -56,13 +88,12 @@ public class WriterRepositoryImpl implements WriterRepository {
     public Writer update(Writer writer) {
         try {
             PreparedStatement p = connection.prepareStatement(
-                    "update writers set firstname = ?, lastname = ?, posts = ?, status = ? where id = ?");
+                    "update writers set firstname = ?, lastname = ?, status = ? where id = ?");
             p.setString(1, writer.getFirstName());
             p.setString(2, writer.getLastName());
-            p.setString(3, PostParser.toJson(writer.getPosts()));
             p.setString(4, writer.getStatus().name());
-            p.setInt(5, writer.getId());
-            return get(writer.getId());
+            p.setInt(4, writer.getId());
+            return writer;
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -73,12 +104,12 @@ public class WriterRepositoryImpl implements WriterRepository {
     public Writer create(Writer writer) {
         try {
             PreparedStatement p = connection.prepareStatement(
-                    "insert into writers (firstname, lastname, posts, status) values (?, ?, ?, ?)");
+                    "insert into writers (firstname, lastname, status) values (?, ?, ?)");
             p.setString(1, writer.getFirstName());
             p.setString(2, writer.getLastName());
-            p.setString(3, PostParser.toJson(writer.getPosts()));
-            p.setString(4, writer.getStatus().name());
-            return get(writer.getId());
+            p.setString(3, writer.getStatus().name());
+            RepoHelper.createWriterPosts(writer);
+            return writer;
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

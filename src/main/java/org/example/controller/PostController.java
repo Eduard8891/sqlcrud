@@ -6,7 +6,7 @@ import org.example.service.PostService;
 import java.util.List;
 
 public class PostController {
-    private final PostService postService;
+    private PostService postService;
 
     public PostController() {
         this.postService = new PostService();
@@ -17,11 +17,13 @@ public class PostController {
     }
 
     public boolean createPost(String body) {
-        return postService.create(body);
+        postService.create(body);
+        return true;
     }
 
     public boolean updatePost(String body) {
-        return postService.update(body);
+        postService.update(body);
+        return true;
     }
 
     public void deletePost(Integer id) {

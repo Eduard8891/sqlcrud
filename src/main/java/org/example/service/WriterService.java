@@ -13,8 +13,8 @@ import java.util.List;
 
 public class WriterService {
 
-    private final WriterRepository writerRepository;
-    private final PostRepository postRepository;
+    private WriterRepository writerRepository;
+    private PostRepository postRepository;
 
     public WriterService() {
         this.writerRepository = new WriterRepositoryImpl();
@@ -25,7 +25,7 @@ public class WriterService {
         return writerRepository.getAll();
     }
 
-    public boolean create(String body) {
+    public Writer create(String body) {
         if (body.split(" ").length == 3) {
             String postsLine = body.split(" ")[2];
             List<Post> currentPosts = getPosts(postsLine);
@@ -40,15 +40,15 @@ public class WriterService {
                     writer.setFirstName(body.split(" ")[0]);
                     writer.setLastName(body.split(" ")[1]);
                     writer.setPosts(currentPosts);
-                    writerRepository.create(writer);
-                    return true;
+                    return writerRepository.create(writer);
+
                 } else {
-                    writerRepository.create(current);
-                    return true;
+                    return writerRepository.create(current);
+
                 }
             }
         }
-        return false;
+        return null;
     }
 
     private List<Post> getPosts(String body) {

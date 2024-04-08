@@ -2,6 +2,7 @@ package org.example.view;
 
 
 import org.example.controller.LabelController;
+import org.example.service.LabelService;
 
 import java.io.PrintStream;
 import java.util.Scanner;
