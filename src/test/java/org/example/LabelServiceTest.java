@@ -1,7 +1,6 @@
 package org.example;
 
 import org.example.model.Label;
-import org.example.model.PostStatus;
 import org.example.repository.LabelRepository;
 import org.example.service.LabelService;
 import org.junit.jupiter.api.Assertions;

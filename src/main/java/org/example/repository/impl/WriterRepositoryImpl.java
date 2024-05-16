@@ -1,84 +1,47 @@
 package org.example.repository.impl;
 
+import org.example.config.HibernateConf;
 import org.example.model.Writer;
-import org.example.repository.RepoHelper;
-import org.example.PostgresConnection;
 import org.example.repository.WriterRepository;
-import org.example.repository.gson.PostParser;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class WriterRepositoryImpl implements WriterRepository {
-    Connection connection = PostgresConnection.getConnection();
+    SessionFactory sessionFactory = HibernateConf.getSessionFactory();
 
     @Override
     public Writer get(Integer id) {
+        Writer writer = null;
         try {
-            PreparedStatement p = connection.prepareStatement(
-                    "select" +
-                            "w.id as id," +
-                            "w.firstname as firstname," +
-                            "w.lastname as lastname," +
-                            "json_agg(json_build_object('id', p.id, " +
-                            "'content', p.content, " +
-                            "'created', p.created, " +
-                            "'updated', p.updated, " +
-                            "'labels', (select json_agg(json_build_object('id', id, 'name', name, 'status', status)) from labels group by id)," +
-                            "'status', p.status)) as posts," +
-                            "w.status as status" +
-                            "from writers w" +
-                            "join writer_posts wp on w.id = wp.writer_id" +
-                            "join posts p on p.id = wp.post_id" +
-                            "where w.id = ?" +
-                            "group by w.id"
-            );
-            p.setInt(1, id);
-            ResultSet resultSet = p.executeQuery();
-            return RepoHelper.mappingWriterFromRS(resultSet);
-        } catch (SQLException exception) {
+            Session session = sessionFactory.openSession();
+            writer = session.get(Writer.class, id);
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
-        return null;
+        return writer;
     }
 
     @Override
     public void delete(Integer id) {
+        Session session = sessionFactory.openSession();
         try {
-            PreparedStatement p = connection.prepareStatement("delete from writers where id = ?");
-            p.setInt(1, id);
-            p.executeUpdate();
-        } catch (SQLException exception) {
+            Writer writer = session.get(Writer.class, id);
+            session.remove(writer);
+            session.getTransaction().commit();
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
     }
 
     @Override
     public List<Writer> getAll() {
-        List<Writer> writers = new ArrayList<>();
+        Session session = sessionFactory.openSession();
+        List<Writer> writers = null;
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(
-                    "select" +
-                            "w.id as id," +
-                            "w.firstname as firstname," +
-                            "w.lastname as lastname," +
-                            "json_agg(json_build_object('id', p.id, " +
-                            "'content', p.content, " +
-                            "'created', p.created, " +
-                            "'updated', p.updated, " +
-                            "'labels', (select json_agg(json_build_object('id', id, 'name', name, 'status', status)) from labels group by id)," +
-                            "'status', p.status)) as posts," +
-                            "w.status as status" +
-                            "from writers w" +
-                            "join writer_posts wp on w.id = wp.writer_id" +
-                            "join posts p on p.id = wp.post_id" +
-                            "group by w.id");
-            while (resultSet.next()) {
-                writers.add(RepoHelper.mappingWriterFromRS(resultSet));
-            }
-        } catch (SQLException exception) {
+            writers = session.createQuery("from Writer", Writer.class).getResultList();
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
         return writers;
@@ -86,33 +49,25 @@ public class WriterRepositoryImpl implements WriterRepository {
 
     @Override
     public Writer update(Writer writer) {
+        Session session = sessionFactory.openSession();
         try {
-            PreparedStatement p = connection.prepareStatement(
-                    "update writers set firstname = ?, lastname = ?, status = ? where id = ?");
-            p.setString(1, writer.getFirstName());
-            p.setString(2, writer.getLastName());
-            p.setString(4, writer.getStatus().name());
-            p.setInt(4, writer.getId());
-            return writer;
-        } catch (SQLException exception) {
+            session.refresh(writer);
+            session.getTransaction().commit();
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
-        return null;
+        return writer;
     }
 
     @Override
     public Writer create(Writer writer) {
+        Session session = sessionFactory.openSession();
         try {
-            PreparedStatement p = connection.prepareStatement(
-                    "insert into writers (firstname, lastname, status) values (?, ?, ?)");
-            p.setString(1, writer.getFirstName());
-            p.setString(2, writer.getLastName());
-            p.setString(3, writer.getStatus().name());
-            RepoHelper.createWriterPosts(writer);
-            return writer;
-        } catch (SQLException exception) {
+            session.persist(writer);
+            session.getTransaction().commit();
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
-        return null;
+        return writer;
     }
 }

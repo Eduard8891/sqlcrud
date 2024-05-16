@@ -23,6 +23,7 @@ public class LabelService {
     public Label create(String body) {
         Label label = new Label();
         label.setName(body);
+        label.setStatus(PostStatus.ACTIVE);
         labelRepository.create(label);
         return label;
     }

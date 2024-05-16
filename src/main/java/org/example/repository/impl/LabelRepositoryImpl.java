@@ -1,52 +1,48 @@
 package org.example.repository.impl;
 
+import org.example.config.HibernateConf;
 import org.example.model.Label;
-import org.example.model.PostStatus;
 import org.example.repository.LabelRepository;
-import org.example.PostgresConnection;
-import org.example.repository.RepoHelper;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class LabelRepositoryImpl implements LabelRepository {
-    Connection connection = PostgresConnection.getConnection();
+
+    SessionFactory sessionFactory = HibernateConf.getSessionFactory();
 
     @Override
     public Label get(Integer id) {
+        Label label = null;
         try {
-            PreparedStatement p = connection.prepareStatement("select * from labels where id = ?");
-            p.setInt(1, id);
-            ResultSet resultSet = p.executeQuery();
-            return RepoHelper.mappingLabelFromRS(resultSet);
-        } catch (SQLException exception) {
+            Session session = sessionFactory.openSession();
+            label = session.get(Label.class, id);
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
-        return null;
+        return label;
     }
 
     @Override
     public void delete(Integer id) {
+        Session session = sessionFactory.openSession();
         try {
-            PreparedStatement p = connection.prepareStatement("delete from labels where id = ?");
-            p.setInt(1, id);
-            p.executeUpdate();
-        } catch (SQLException exception) {
+            Label label = session.get(Label.class, id);
+            session.remove(label);
+            session.getTransaction().commit();
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
     }
 
     @Override
     public List<Label> getAll() {
-        List<Label> labels = new ArrayList<>();
+        Session session = sessionFactory.openSession();
+        List<Label> labels = null;
         try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from labels");
-            while (resultSet.next()) {
-                labels.add(RepoHelper.mappingLabelFromRS(resultSet));
-            }
-        } catch (SQLException exception) {
+            labels = session.createQuery("from Label", Label.class).getResultList();
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
         return labels;
@@ -54,30 +50,25 @@ public class LabelRepositoryImpl implements LabelRepository {
 
     @Override
     public Label update(Label label) {
+        Session session = sessionFactory.openSession();
         try {
-            PreparedStatement p = connection.prepareStatement("update labels set name = ?, status = ? where id = ?");
-            p.setString(1, label.getName());
-            p.setString(2, label.getStatus().name());
-            p.setInt(3, label.getId());
-            ResultSet resultSet = p.executeQuery();
-            return RepoHelper.mappingLabelFromRS(resultSet);
-        } catch (SQLException exception) {
+            session.refresh(label);
+            session.getTransaction().commit();
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
-        return null;
+        return label;
     }
 
     @Override
     public Label create(Label label) {
+        Session session = sessionFactory.openSession();
         try {
-            PreparedStatement p = connection.prepareStatement("insert into labels (name, status) values (?, ?)");
-            p.setString(1, label.getName());
-            p.setString(2, PostStatus.ACTIVE.name());
-            ResultSet resultSet = p.executeQuery();
-            return RepoHelper.mappingLabelFromRS(resultSet);
-        } catch (SQLException exception) {
+            session.persist(label);
+            session.getTransaction().commit();
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
-        return null;
+        return label;
     }
 }

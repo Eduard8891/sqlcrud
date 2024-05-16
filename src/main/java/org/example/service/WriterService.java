@@ -1,6 +1,7 @@
 package org.example.service;
 
 import org.example.model.Post;
+import org.example.model.PostStatus;
 import org.example.model.Writer;
 import org.example.repository.PostRepository;
 import org.example.repository.WriterRepository;
@@ -40,6 +41,7 @@ public class WriterService {
                     writer.setFirstName(body.split(" ")[0]);
                     writer.setLastName(body.split(" ")[1]);
                     writer.setPosts(currentPosts);
+                    writer.setStatus(PostStatus.ACTIVE);
                     return writerRepository.create(writer);
 
                 } else {

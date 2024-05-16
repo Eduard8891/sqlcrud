@@ -22,6 +22,4 @@ public interface PostRepository extends GenericRepository<Post, Integer> {
 
     @Override
     Post create(Post post);
-
-    List <Label> getLabels();
 }
