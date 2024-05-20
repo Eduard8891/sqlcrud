@@ -3,6 +3,7 @@ package org.example;
 import org.example.model.Label;
 import org.example.model.Post;
 import org.example.model.PostStatus;
+import org.example.repository.LabelRepository;
 import org.example.repository.PostRepository;
 import org.example.service.PostService;
 import org.junit.jupiter.api.Assertions;
@@ -25,6 +26,8 @@ public class PostServiceTest {
 
     @Mock
     private static PostRepository postRepository;
+    @Mock
+    private static LabelRepository labelRepository;
 
     @InjectMocks
     private static PostService postService;
@@ -40,7 +43,7 @@ public class PostServiceTest {
     public void createPostTest() {
         Label label = new Label(5, "label", PostStatus.ACTIVE);
         Post post = new Post();
-        Mockito.when(postRepository.getLabels()).thenReturn(List.of(label));
+        Mockito.when(labelRepository.getAll()).thenReturn(List.of(label));
         Mockito.when(postRepository.create(any(Post.class))).thenReturn(post);
         Post current = postService.create("testContent___5");
         Assertions.assertEquals(current.getContent(), post.getContent());
@@ -52,7 +55,7 @@ public class PostServiceTest {
         Post post = new Post();
         post.setId(8);
         post.setContent("testContent");
-        Mockito.when(postRepository.getLabels()).thenReturn(List.of(label));
+        Mockito.when(labelRepository.getAll()).thenReturn(List.of(label));
         Mockito.when(postRepository.getAll()).thenReturn(List.of(post));
         Mockito.when(postRepository.update(any(Post.class))).thenReturn(post);
         Post current = postService.update("8___testContent___5");

@@ -1,5 +1,6 @@
 package org.example.repository.impl;
 
+import jakarta.transaction.Transactional;
 import org.example.config.HibernateConf;
 import org.example.model.Label;
 import org.example.repository.LabelRepository;
@@ -24,11 +25,12 @@ public class LabelRepositoryImpl implements LabelRepository {
         }
         return label;
     }
-
+    @Transactional
     @Override
     public void delete(Integer id) {
         Session session = sessionFactory.openSession();
         try {
+            session.beginTransaction();
             Label label = session.get(Label.class, id);
             session.remove(label);
             session.getTransaction().commit();
@@ -48,11 +50,12 @@ public class LabelRepositoryImpl implements LabelRepository {
         }
         return labels;
     }
-
+    @Transactional
     @Override
     public Label update(Label label) {
         Session session = sessionFactory.openSession();
         try {
+            session.beginTransaction();
             session.refresh(label);
             session.getTransaction().commit();
         } catch (Exception exception) {
@@ -61,10 +64,12 @@ public class LabelRepositoryImpl implements LabelRepository {
         return label;
     }
 
+    @Transactional
     @Override
     public Label create(Label label) {
         Session session = sessionFactory.openSession();
         try {
+            session.beginTransaction();
             session.persist(label);
             session.getTransaction().commit();
         } catch (Exception exception) {

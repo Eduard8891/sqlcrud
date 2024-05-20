@@ -1,5 +1,6 @@
 package org.example.repository.impl;
 
+import jakarta.transaction.Transactional;
 import org.example.config.HibernateConf;
 import org.example.model.Post;
 import org.example.repository.PostRepository;
@@ -22,11 +23,12 @@ public class PostRepositoryImpl implements PostRepository {
         }
         return post;
     }
-
+    @Transactional
     @Override
     public void delete(Integer id) {
         Session session = sessionFactory.openSession();
         try {
+            session.beginTransaction();
             Post post = session.get(Post.class, id);
             session.remove(post);
             session.getTransaction().commit();
@@ -46,11 +48,12 @@ public class PostRepositoryImpl implements PostRepository {
         }
         return posts;
     }
-
+    @Transactional
     @Override
     public Post update(Post post) {
         Session session = sessionFactory.openSession();
         try {
+            session.beginTransaction();
             session.refresh(post);
             session.getTransaction().commit();
         } catch (Exception exception) {
@@ -58,11 +61,12 @@ public class PostRepositoryImpl implements PostRepository {
         }
         return post;
     }
-
+    @Transactional
     @Override
     public Post create(Post post) {
         Session session = sessionFactory.openSession();
         try {
+            session.beginTransaction();
             session.persist(post);
             session.getTransaction().commit();
         } catch (Exception exception) {

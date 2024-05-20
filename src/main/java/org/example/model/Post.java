@@ -16,6 +16,7 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "post_content")
     private String content;
     private Timestamp created;
     private Timestamp updated;

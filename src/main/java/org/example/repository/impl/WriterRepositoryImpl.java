@@ -1,5 +1,6 @@
 package org.example.repository.impl;
 
+import jakarta.transaction.Transactional;
 import org.example.config.HibernateConf;
 import org.example.model.Writer;
 import org.example.repository.WriterRepository;
@@ -22,11 +23,12 @@ public class WriterRepositoryImpl implements WriterRepository {
         }
         return writer;
     }
-
+    @Transactional
     @Override
     public void delete(Integer id) {
         Session session = sessionFactory.openSession();
         try {
+            session.beginTransaction();
             Writer writer = session.get(Writer.class, id);
             session.remove(writer);
             session.getTransaction().commit();
@@ -46,11 +48,12 @@ public class WriterRepositoryImpl implements WriterRepository {
         }
         return writers;
     }
-
+    @Transactional
     @Override
     public Writer update(Writer writer) {
         Session session = sessionFactory.openSession();
         try {
+            session.beginTransaction();
             session.refresh(writer);
             session.getTransaction().commit();
         } catch (Exception exception) {
@@ -58,11 +61,12 @@ public class WriterRepositoryImpl implements WriterRepository {
         }
         return writer;
     }
-
+    @Transactional
     @Override
     public Writer create(Writer writer) {
         Session session = sessionFactory.openSession();
         try {
+            session.beginTransaction();
             session.persist(writer);
             session.getTransaction().commit();
         } catch (Exception exception) {
