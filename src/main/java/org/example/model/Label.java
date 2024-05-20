@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "label")
 public class Label {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +17,7 @@ public class Label {
     @Column(name = "label_name")
     private String name;
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "enum")
     private PostStatus status;
 }
 

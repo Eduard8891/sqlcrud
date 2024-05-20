@@ -5,6 +5,7 @@ import org.example.model.Label;
 import org.example.repository.LabelRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 import java.util.List;
 

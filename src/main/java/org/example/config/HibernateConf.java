@@ -9,7 +9,7 @@ public class HibernateConf {
     private static final SessionFactory sf;
 
     static {
-        Configuration configuration = new Configuration().configure();
+        Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
         StandardServiceRegistryBuilder builder =
                 new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
         sf = configuration.buildSessionFactory(builder.build());

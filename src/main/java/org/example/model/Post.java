@@ -23,5 +23,6 @@ public class Post {
     @JoinColumn(name = "id")
     private List<Label> labels;
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "enum")
     private PostStatus status;
 }

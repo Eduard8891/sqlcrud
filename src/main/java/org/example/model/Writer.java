@@ -23,5 +23,6 @@ public class Writer {
     @JoinColumn(name = "id")
     private List<Post> posts;
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "enum")
     private PostStatus status;
 }

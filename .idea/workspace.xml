@@ -4,32 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="43c567a7-e509-427d-a8dc-276606ea810d" name="Changes" comment="Some refactor">
-      <change afterPath="$PROJECT_DIR$/flyway.conf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/config/HibernateConf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1_create_label.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1_create_post.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1_create_writer.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
+    <list default="true" id="43c567a7-e509-427d-a8dc-276606ea810d" name="Changes" comment="Change for hiber and flyway">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/54d36750-e965-4530-abcf-d63880d989af.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/54d36750-e965-4530-abcf-d63880d989af.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/54d36750-e965-4530-abcf-d63880d989af/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/54d36750-e965-4530-abcf-d63880d989af/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flyway.conf" beforeDir="false" afterPath="$PROJECT_DIR$/flyway.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/PostgresConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/FlywayUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/FlywayUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/FlywayUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Label.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Label.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Post.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Writer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Writer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/PostRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/RepoHelper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/gson/LabelsParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/gson/PostParser.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/LabelRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/LabelRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/PostRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/PostRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/WriterRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/WriterRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/LabelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/LabelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/WriterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/WriterService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/create-tables.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/LabelServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/LabelServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V1_create_label.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1__create_label.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V1_create_post.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V2__create_post.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V1_create_writer.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V3__create_writer.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,16 +74,30 @@
       <recent name="C:\Users\edrip\IdeaProjects\mycrud\src\main\java\org\example" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\edrip\IdeaProjects\mycrud" />
+      <recent name="C:\Users\edrip\IdeaProjects\mycrud\conf" />
       <recent name="C:\Users\edrip\IdeaProjects\mycrud\src\main\resources" />
       <recent name="C:\Users\edrip\IdeaProjects\mycrud\src\main\java" />
-      <recent name="C:\Users\edrip\IdeaProjects\mycrud" />
       <recent name="C:\Users\edrip\IdeaProjects\mycrud\src\main\resources\db\changelog\changeset" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="org.example" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.WriterServiceTest">
+  <component name="RunManager" selected="Application.App">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.App" />
+      <module name="mycrud" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="WriterServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mycrud" />
       <extension name="coverage">
@@ -141,22 +145,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WriterServiceTest.getAllTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="mycrud" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example" />
-      <option name="MAIN_CLASS_NAME" value="org.example.WriterServiceTest" />
-      <option name="METHOD_NAME" value="getAllTest" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="org.example in mycrud" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="mycrud" />
       <extension name="coverage">
@@ -173,11 +161,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.App" />
         <item itemvalue="JUnit.WriterServiceTest" />
         <item itemvalue="JUnit.org.example in mycrud" />
         <item itemvalue="JUnit.WriterServiceTest.deletePostTest" />
         <item itemvalue="JUnit.WriterServiceTest.createPostTest" />
-        <item itemvalue="JUnit.WriterServiceTest.getAllTest" />
       </list>
     </recent_temporary>
   </component>
@@ -219,7 +207,9 @@
       <workItem from="1715595355729" duration="3184000" />
       <workItem from="1715780348483" duration="2371000" />
       <workItem from="1715874992232" duration="2456000" />
-      <workItem from="1715897095843" duration="2085000" />
+      <workItem from="1715897095843" duration="4132000" />
+      <workItem from="1715980476773" duration="3407000" />
+      <workItem from="1716198941766" duration="2398000" />
     </task>
     <task id="LOCAL-00001" summary="Added postgres">
       <created>1711354638189</created>
@@ -256,7 +246,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712563745348</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Change for hiber and flyway">
+      <created>1715899317479</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1715899317479</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,6 +275,22 @@
     <MESSAGE value="Added gson and changed array to varchar(2000)" />
     <MESSAGE value="Added services" />
     <MESSAGE value="Some refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Some refactor" />
+    <MESSAGE value="Change for hiber and flyway" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change for hiber and flyway" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>jar://$MAVEN_REPOSITORY$/org/flywaydb/flyway-core/10.10.0/flyway-core-10.10.0.jar!/org/flywaydb/core/internal/configuration/ConfigurationValidator.class</url>
+          <line>19</line>
+          <properties class="org.flywaydb.core.internal.configuration.ConfigurationValidator" method="validate">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
